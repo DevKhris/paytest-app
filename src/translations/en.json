@@ -1,0 +1,47 @@
+{
+  "landing": {
+    "title": "PayTest",
+    "subtitle": "Enter your access code to continue",
+    "form": {
+      "title": "Restricted access",
+      "label": "Access code",
+      "placeholder": "XXXXXXXX",
+      "submit": "Continue",
+      "loading": "Verifying...",
+      "error": "Invalid access code. Please try again.",
+      "success": "Access granted. Redirecting...",
+      "empty": "Please enter a code"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Section under construction",
+    "close": "Close session",
+    "profile": {
+      "title": "Your account",
+      "id": "ID",
+      "balance": "Balance"
+    },
+    "transfer": {
+      "title": "Send / Receive",
+      "send": "Send",
+      "receive": "Receive",
+      "amount": "Amount",
+      "recipientId": "Recipient ID",
+      "submit": "Send",
+      "cancel": "Cancel",
+      "soon": "Coming soon"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "empty": "No transactions yet"
+    },
+    "sections": {
+      "funds": "Funds",
+      "activity": "Activity"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 PayTest. All rights reserved."
+  }
+}

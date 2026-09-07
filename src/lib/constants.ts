@@ -1,4 +1,4 @@
-export const ACCESS_CODE = 'PAYTEST2024';
+export const ACCESS_CODE = 'PAYTEST2026';
 
 export const MESSAGES = {
   idle: 'Ingresa el código de acceso',

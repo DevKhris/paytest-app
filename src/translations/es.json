@@ -1,0 +1,47 @@
+{
+  "landing": {
+    "title": "PayTest",
+    "subtitle": "Ingresa tu código de acceso para continuar",
+    "form": {
+      "title": "Acceso restringido",
+      "label": "Código de acceso",
+      "placeholder": "XXXXXXXX",
+      "submit": "Continuar",
+      "loading": "Verificando...",
+      "error": "Código de acceso inválido. Por favor intenta de nuevo.",
+      "success": "Acceso concedido. Redirigiendo...",
+      "empty": "Por favor ingresa un código"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Sección en construcción",
+    "close": "Cerrar sesión",
+    "profile": {
+      "title": "Tu cuenta",
+      "id": "ID",
+      "balance": "Saldo"
+    },
+    "transfer": {
+      "title": "Enviar / Recibir",
+      "send": "Enviar",
+      "receive": "Recibir",
+      "amount": "Monto",
+      "recipientId": "ID del receptor",
+      "submit": "Enviar",
+      "cancel": "Cancelar",
+      "soon": "Próximamente"
+    },
+    "transactions": {
+      "title": "Transacciones",
+      "empty": "Sin transacciones aún"
+    },
+    "sections": {
+      "funds": "Fondos",
+      "activity": "Actividad"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 PayTest. Todos los derechos reservados."
+  }
+}

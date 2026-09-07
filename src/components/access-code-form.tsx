@@ -1,24 +1,34 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { ACCESS_CODE } from '@/lib/constants';
+import { i18n } from '@/i18n/keys';
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error';
-
-const MESSAGES = {
-  idle: '',
-  loading: 'Verificando credenciales...',
-  error: 'Código de acceso inválido. Por favor intenta de nuevo.',
-  success: 'Acceso concedido. Redirigiendo...',
-};
 
 export default function AccessCodeForm() {
   const [status, setStatus] = useState<FormStatus>('idle');
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
+  const t = useTranslations();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const statusMessages = useMemo(() => ({
+    idle: '',
+    loading: t(i18n.landing.form.loading),
+    error: t(i18n.landing.form.error),
+    success: t(i18n.landing.form.success),
+  }), [t]);
+
+  const buttonMessages = useMemo(() => ({
+    idle: t(i18n.landing.form.submit),
+    loading: t(i18n.landing.form.loading),
+    success: '✓',
+    error: t(i18n.landing.form.submit),
+  }), [t]);
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!inputValue.trim()) {
@@ -39,30 +49,40 @@ export default function AccessCodeForm() {
       setStatus('error');
       setInputValue('');
     }
-  };
+  }, [inputValue, router]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
     if (status === 'error') {
       setStatus('idle');
     }
-  };
+  }, [status]);
+
+  const isInputDisabled = useMemo(() => 
+    status === 'loading' || status === 'success',
+    [status]
+  );
+
+  const isButtonDisabled = useMemo(() => 
+    status === 'loading' || status === 'success',
+    [status]
+  );
 
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="access-code" className="form-label">
-            Código de acceso
+            {t(i18n.landing.form.label)}
           </label>
           <input
             id="access-code"
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            placeholder="XXXXXXXX"
+            placeholder={t(i18n.landing.form.placeholder)}
             className={`form-input ${status === 'error' ? 'error' : ''}`}
-            disabled={status === 'loading' || status === 'success'}
+            disabled={isInputDisabled}
             autoComplete="off"
             spellCheck={false}
           />
@@ -71,14 +91,14 @@ export default function AccessCodeForm() {
         <button
           type="submit"
           className="submit-btn"
-          disabled={status === 'loading' || status === 'success'}
+          disabled={isButtonDisabled}
         >
-          {status === 'loading' ? 'Verificando...' : status === 'success' ? '✓' : 'Continuar'}
+          {buttonMessages[status]}
         </button>
       </form>
 
       <div className={`status-message ${status !== 'idle' ? 'visible' : ''} ${status}`}>
-        {MESSAGES[status]}
+        {statusMessages[status]}
       </div>
     </div>
   );

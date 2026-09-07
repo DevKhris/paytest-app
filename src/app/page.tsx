@@ -1,12 +1,16 @@
+import { getTranslations } from 'next-intl/server';
 import AccessCodeForm from '@/components/access-code-form';
+import { i18n } from '@/i18n/keys';
 
-export default function Home() {
+export default async function HomePage() {
+  const t = await getTranslations();
+
   return (
     <div className="page-wrapper">
       <header className="header">
         <div className="header-content">
           <div className="logo">
-            Pay<span className="logo-accent">Test</span>
+            {t(i18n.landing.title)}
           </div>
         </div>
       </header>
@@ -14,9 +18,9 @@ export default function Home() {
       <main className="main-content">
         <div className="card">
           <div className="card-header">
-            <h1 className="card-title">Acceso restringido</h1>
+            <h1 className="card-title">{t(i18n.landing.form.title)}</h1>
             <p className="card-subtitle">
-              Ingresa tu código de acceso para continuar
+              {t(i18n.landing.subtitle)}
             </p>
           </div>
           <AccessCodeForm />
@@ -25,7 +29,7 @@ export default function Home() {
 
       <footer className="footer">
         <p className="footer-text">
-          © 2026 PayTest. Todos los derechos reservados.
+          {t(i18n.footer.copyright)}
         </p>
       </footer>
     </div>
