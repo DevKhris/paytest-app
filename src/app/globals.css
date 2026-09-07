@@ -108,3 +108,20 @@ body {
 .animate-slideUp {
   animation: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* Gradient border for inputs on focus */
+.input-gradient-focus {
+  position: relative;
+  border: 2px solid var(--color-border);
+  transition: border-color 150ms ease;
+}
+
+.input-gradient-focus:focus-within {
+  border-color: transparent;
+  background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
+              linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) border-box;
+}
+
+.input-gradient-focus:focus-within:focus {
+  outline: none;
+}

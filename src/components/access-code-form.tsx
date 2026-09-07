@@ -81,11 +81,11 @@ export default function AccessCodeForm() {
           {...register('name')}
           placeholder={t(i18n.landing.form.namePlaceholder)}
           disabled={isSubmitting || isSuccess}
-          className={`${inputBaseClass} ${
+          className={`${inputBaseClass} input-gradient-focus ${
             errors.name 
               ? 'border-[var(--color-error)]' 
-              : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
-          } disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none`}
+              : ''
+          } disabled:opacity-60 disabled:cursor-not-allowed`}
           style={{ 
             color: 'var(--color-text-primary)',
             backgroundColor: 'var(--color-bg)'
@@ -109,11 +109,11 @@ export default function AccessCodeForm() {
           disabled={isSubmitting || isSuccess}
           autoComplete="off"
           spellCheck={false}
-          className={`${inputBaseClass} ${
+          className={`${inputBaseClass} input-gradient-focus ${
             errors.code 
               ? 'border-[var(--color-error)]' 
-              : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
-          } disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none`}
+              : ''
+          } disabled:opacity-60 disabled:cursor-not-allowed`}
           style={{ 
             color: 'var(--color-text-primary)',
             backgroundColor: 'var(--color-bg)'
