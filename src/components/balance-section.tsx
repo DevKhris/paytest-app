@@ -23,19 +23,16 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
     [user.balance]
   );
 
-  const displayId = useMemo(() => 
-    user.id.match(/.{1,4}/g)?.join('-') ?? user.id,
-    [user.id]
-  );
+  const displayId = user.id;
 
   return (
     <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200" 
          style={{ backgroundColor: 'var(--color-bg-card)' }}>
       <div className="mb-6">
         <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
-          {t(i18n.dashboard.profile.name)}
+          {t(i18n.dashboard.profile.welcomeBack)}
         </p>
-        <p className="text-2xl font-bold tracking-tight transition-colors duration-200" style={{ color: 'var(--color-text-primary)' }}>
+        <p className="text-2xl font-bold uppercase tracking-wider bg-clip-text" style={{ color: 'transparent', backgroundImage: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))' }}>
           {user.name}
         </p>
       </div>
@@ -44,13 +41,13 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
         <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
           {t(i18n.dashboard.profile.balance)}
         </p>
-        <p className="text-4xl font-bold tracking-tighter font-mono transition-colors duration-200" style={{ color: 'var(--color-neon-cyan)' }}>
+        <p className="text-4xl font-bold tracking-tighter font-mono transition-colors duration-200" style={{ color: 'var(--gradient-start)' }}>
           {formattedBalance}
         </p>
       </div>
 
       <div className="flex items-center justify-between p-3 mb-6 rounded-lg border border-dashed transition-colors duration-200"
-           style={{ backgroundColor: 'var(--color-bg-subtle)', borderColor: 'var(--color-border)' }}>
+           style={{ borderColor: 'var(--color-border)' }}>
         <span className="text-xs uppercase tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
           {t(i18n.dashboard.profile.id)}
         </span>
@@ -65,9 +62,9 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
           onClick={onSendClick}
           className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 transition-all duration-150"
           style={{ 
-            backgroundColor: 'var(--color-neon-cyan)',
-            borderColor: 'var(--color-neon-cyan)',
-            color: '#0D0D0D'
+            backgroundColor: 'var(--gradient-start)',
+            borderColor: 'var(--gradient-start)',
+            color: '#FFFFFF'
           }}
         >
           <ArrowUpLeft02Icon size={18} strokeWidth={2} />

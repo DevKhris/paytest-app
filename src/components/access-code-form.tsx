@@ -84,7 +84,7 @@ export default function AccessCodeForm() {
           className={`${inputBaseClass} ${
             errors.name 
               ? 'border-[var(--color-error)]' 
-              : 'border-[var(--color-border)] focus:border-[var(--color-neon-cyan)]'
+              : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
           } disabled:opacity-60 disabled:cursor-not-allowed`}
           style={{ 
             color: 'var(--color-text-primary)',
@@ -112,7 +112,7 @@ export default function AccessCodeForm() {
           className={`${inputBaseClass} ${
             errors.code 
               ? 'border-[var(--color-error)]' 
-              : 'border-[var(--color-border)] focus:border-[var(--color-neon-cyan)]'
+              : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
           } disabled:opacity-60 disabled:cursor-not-allowed`}
           style={{ 
             color: 'var(--color-text-primary)',
@@ -126,9 +126,9 @@ export default function AccessCodeForm() {
         disabled={isSubmitting || isSuccess}
         className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
         style={{ 
-          backgroundColor: 'var(--color-neon-cyan)',
-          borderColor: 'var(--color-neon-cyan)',
-          color: '#0D0D0D'
+          backgroundColor: 'var(--gradient-start)',
+          borderColor: 'var(--gradient-start)',
+          color: '#FFFFFF'
         }}
       >
         {isSubmitting ? (

@@ -6,10 +6,10 @@ export default function LoadingFallback({ message = 'Loading...' }: LoadingFallb
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-bg)' }}>
       <header className="relative border-b-2" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)' }}>
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--color-neon-cyan)] via-[var(--color-neon-pink)] to-[var(--color-neon-purple)]"></div>
+        <div className="absolute inset-x-0 top-0 h-0.5" style={{ background: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))' }}></div>
         <div className="max-w-5xl mx-auto px-6 py-4">
           <div className="relative pl-8">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2" style={{ color: 'var(--color-neon-cyan)' }}>◆</span>
+            <span className="absolute left-0 top-1/2 -translate-y-1/2" style={{ color: 'var(--gradient-start)' }}>◆</span>
             <h1 className="text-xl font-bold tracking-tight" style={{ color: 'var(--color-text-primary)' }}>
               PayTest
             </h1>

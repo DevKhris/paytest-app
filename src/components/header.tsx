@@ -12,10 +12,10 @@ export default function Header({ title, showCloseButton, onClose, closeLabel }: 
   return (
     <header className="relative border-b-2 transition-colors duration-200" 
             style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)' }}>
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--color-neon-cyan)] via-[var(--color-neon-pink)] to-[var(--color-neon-purple)]"></div>
+      <div className="absolute inset-x-0 top-0 h-0.5" style={{ background: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))' }}></div>
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="relative pl-8">
-          <span className="absolute left-0 top-1/2 -translate-y-1/2 transition-colors duration-200" style={{ color: 'var(--color-neon-cyan)' }}>◆</span>
+            <span className="absolute left-0 top-1/2 -translate-y-1/2 transition-colors duration-200" style={{ color: 'var(--gradient-start)' }}>◆</span>
           <h1 className="text-xl font-bold tracking-tight transition-colors duration-200" style={{ color: 'var(--color-text-primary)' }}>
             {title}
           </h1>

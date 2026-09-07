@@ -1,49 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  --color-neon-cyan: #00FFAA;
-  --color-neon-pink: #FF0080;
-  --color-neon-yellow: #FFE600;
-  --color-neon-purple: #8B5CF6;
+  --color-neon-cyan: #00D4A4;
+  --color-neon-orange: #FF8C00;
   --color-bg: #0D0D0D;
   --color-bg-subtle: #1A1A1A;
   --color-bg-card: #141414;
   --color-text-primary: #F0F0F0;
-  --color-text-secondary: #888888;
-  --color-accent: #00FFAA;
-  --color-accent-hover: #00CC88;
-  --color-error: #FF3366;
-  --color-error-bg: rgba(255, 51, 102, 0.15);
-  --color-success: #00FFAA;
-  --color-success-bg: rgba(0, 255, 170, 0.15);
+  --color-text-secondary: #A8A8A8;
+  --color-accent: #00D4A4;
+  --color-error: #FF4757;
+  --color-error-bg: rgba(255, 71, 87, 0.15);
+  --color-success: #00D4A4;
+  --color-success-bg: rgba(0, 212, 164, 0.15);
   --color-border: #2A2A2A;
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-/* Dark theme (default - retro arcade) */
+/* Dark theme (default) */
 :root,
 [data-theme="dark"] {
   --color-bg: #0D0D0D;
   --color-bg-subtle: #1A1A1A;
   --color-bg-card: #141414;
   --color-text-primary: #F0F0F0;
-  --color-text-secondary: #888888;
+  --color-text-secondary: #A8A8A8;
   --color-border: #2A2A2A;
-  --glow-cyan: 0 0 15px rgba(0, 255, 170, 0.4);
-  --glow-pink: 0 0 15px rgba(255, 0, 128, 0.4);
+  --glow-cyan: 0 0 15px rgba(0, 212, 164, 0.5);
+  --glow-orange: 0 0 15px rgba(255, 140, 0, 0.5);
+  --gradient-start: #00D4A4;
+  --gradient-end: #FF8C00;
 }
 
-/* Light theme - soft arcade */
+/* Light theme - WCAG AA compliant */
 [data-theme="light"] {
   --color-bg: #F5F5F7;
-  --color-bg-subtle: #EBEBF0;
+  --color-bg-subtle: #E8E8EC;
   --color-bg-card: #FFFFFF;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666666;
-  --color-border: #D4D4D8;
-  --glow-cyan: 0 0 10px rgba(0, 200, 170, 0.3);
-  --glow-pink: 0 0 10px rgba(220, 0, 120, 0.3);
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #5A5A6E;
+  --color-border: #D1D1D6;
+  --glow-cyan: 0 0 10px rgba(0, 150, 130, 0.4);
+  --glow-orange: 0 0 10px rgba(200, 110, 0, 0.4);
+  --gradient-start: #008B76;
+  --gradient-end: #CC7000;
 }
 
 body {
@@ -59,25 +60,25 @@ body {
   position: relative;
   border: 2px solid transparent;
   background: linear-gradient(var(--color-bg-card), var(--color-bg-card)) padding-box,
-              linear-gradient(135deg, var(--color-neon-cyan), var(--color-neon-pink), var(--color-neon-purple)) border-box;
+              linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) border-box;
 }
 
 .neon-border-accent {
   position: relative;
   border: 2px solid transparent;
   background: linear-gradient(var(--color-bg-card), var(--color-bg-card)) padding-box,
-              linear-gradient(90deg, var(--color-neon-cyan), var(--color-neon-pink)) border-box;
+              linear-gradient(90deg, var(--gradient-start), var(--gradient-end)) border-box;
 }
 
 /* Subtle glow for cards */
 .glow-border {
-  box-shadow: 0 0 20px rgba(0, 255, 170, 0.15), inset 0 0 20px rgba(0, 255, 170, 0.03);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 212, 164, 0.08);
 }
 
 /* Retro pixel dots decoration */
 .pixel-dots {
-  background-image: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
-  background-size: 10px 10px;
+  background-image: radial-gradient(circle, var(--color-border) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
 }
 
 /* Button hover glow */
@@ -85,6 +86,6 @@ body {
   box-shadow: var(--glow-cyan);
 }
 
-.btn-glow-pink:hover {
-  box-shadow: var(--glow-pink);
+.btn-glow-orange:hover {
+  box-shadow: var(--glow-orange);
 }

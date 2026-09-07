@@ -41,19 +41,19 @@ export default function DashboardContent() {
 
   if (!mounted || !user) {
     return (
-      <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
+      <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-bg)' }}>
         <Header title={t(i18n.landing.title)} />
         <main className="flex-1 flex items-center justify-center">
-          <div className="text-[var(--color-text-secondary)] animate-pulse">
+          <p className="animate-pulse" style={{ color: 'var(--color-text-secondary)' }}>
             Loading...
-          </div>
+          </p>
         </main>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-bg)' }}>
       <Header
         title={t(i18n.landing.title)}
         showCloseButton
@@ -61,11 +61,11 @@ export default function DashboardContent() {
         closeLabel={t(i18n.dashboard.close)}
       />
 
-      <main className="flex-1 p-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-            <section className="lg:col-span-2 space-y-3">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-secondary)] pl-1">
+      <main className="flex-1 p-6 lg:p-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <section className="space-y-4">
+              <h2 className="text-xs font-bold uppercase tracking-widest pl-1" style={{ color: 'var(--color-text-secondary)' }}>
                 {t(i18n.dashboard.sections.funds)}
               </h2>
               <BalanceSection
@@ -75,8 +75,8 @@ export default function DashboardContent() {
               />
             </section>
 
-            <section className="lg:col-span-3 space-y-3">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-secondary)] pl-1">
+            <section className="space-y-4">
+              <h2 className="text-xs font-bold uppercase tracking-widest pl-1" style={{ color: 'var(--color-text-secondary)' }}>
                 {t(i18n.dashboard.sections.activity)}
               </h2>
               <TransactionList transactions={transactions} />
@@ -85,9 +85,10 @@ export default function DashboardContent() {
         </div>
       </main>
 
-      <footer className="relative py-6 px-6 bg-[var(--color-bg-card)] border-t-2 border-[var(--color-border)] text-center">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-gradient-to-r from-[var(--neon-cyan)] via-[var(--neon-pink)] to-[var(--neon-purple)] rounded-full"></div>
-        <p className="text-sm text-[var(--color-text-secondary)]">
+      <footer className="py-6 px-6 text-center border-t" 
+              style={{ backgroundColor: 'var(--color-bg-card)', borderColor: 'var(--color-border)' }}>
+        <div className="w-16 h-1 mx-auto rounded-full" style={{ backgroundColor: 'var(--gradient-start)' }}></div>
+        <p className="text-sm mt-4" style={{ color: 'var(--color-text-secondary)' }}>
           {t(i18n.footer.copyright)}
         </p>
       </footer>

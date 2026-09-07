@@ -23,7 +23,7 @@ export const i18n = {
       title: 'dashboard.profile.title',
       id: 'dashboard.profile.id',
       balance: 'dashboard.profile.balance',
-      name: 'dashboard.profile.name',
+      welcomeBack: 'dashboard.profile.welcomeBack',
     },
     transfer: {
       title: 'dashboard.transfer.title',

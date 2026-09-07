@@ -23,7 +23,7 @@
       "title": "Tu cuenta",
       "id": "ID",
       "balance": "Saldo",
-      "name": "Nombre"
+      "welcomeBack": "Bienvenido de vuelta"
     },
     "transfer": {
       "title": "Enviar / Recibir",

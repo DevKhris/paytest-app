@@ -36,8 +36,8 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md rounded-xl neon-border-accent"
-        style={{ backgroundColor: 'var(--color-bg-card)' }}
+        className="relative w-full max-w-md rounded-xl"
+        style={{ backgroundColor: 'var(--color-bg-card)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 border-b transition-colors duration-200"
@@ -124,9 +124,9 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
             disabled={!isFormValid}
             className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ 
-              borderColor: 'var(--color-neon-cyan)',
-              backgroundColor: 'var(--color-neon-cyan)',
-              color: '#0D0D0D'
+              borderColor: 'var(--gradient-start)',
+              backgroundColor: 'var(--gradient-start)',
+              color: '#FFFFFF'
             }}
           >
             {t(i18n.dashboard.transfer.submit)}
