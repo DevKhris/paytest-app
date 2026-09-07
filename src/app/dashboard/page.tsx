@@ -1,6 +1,4 @@
-import AccessCodeForm from '@/components/access-code-form';
-
-export default function Home() {
+export default function Dashboard() {
   return (
     <div className="page-wrapper">
       <header className="header">
@@ -14,12 +12,11 @@ export default function Home() {
       <main className="main-content">
         <div className="card">
           <div className="card-header">
-            <h1 className="card-title">Acceso restringido</h1>
+            <h1 className="card-title">Dashboard</h1>
             <p className="card-subtitle">
-              Ingresa tu código de acceso para continuar
+              Sección en construcción
             </p>
           </div>
-          <AccessCodeForm />
         </div>
       </main>
 
