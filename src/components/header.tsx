@@ -5,13 +5,12 @@ import ThemeToggle from './theme-toggle';
 import { Logout01Icon } from 'hugeicons-react';
 
 interface HeaderProps {
-  title: string;
   showCloseButton?: boolean;
   onClose?: () => void;
   closeLabel?: string;
 }
 
-export default function Header({ title, showCloseButton, onClose, closeLabel }: HeaderProps) {
+export default function Header({ showCloseButton, onClose, closeLabel }: HeaderProps) {
   const [diamondClicks, setDiamondClicks] = useState(0);
 
   const handleDiamondClick = useCallback(() => {

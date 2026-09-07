@@ -6,13 +6,21 @@
       "title": "Acceso restringido",
       "nameLabel": "Nombre",
       "namePlaceholder": "Tu nombre",
-      "codeLabel": "Código de acceso",
+      "codeLabel": "Código de sala",
       "codePlaceholder": "XXXXXXXX",
       "submit": "Continuar",
       "loading": "Verificando...",
-      "error": "Código de acceso inválido. Por favor intenta de nuevo.",
+      "error": "Código de sala inválido. Por favor intenta de nuevo.",
       "success": "Acceso concedido. Redirigiendo...",
-      "empty": "Por favor ingresa un código"
+      "empty": "Por favor ingresa un código",
+      "setupTitle": "Creando tu cuenta",
+      "setupSubtitle": "Tu cuenta ha sido creada exitosamente",
+      "yourId": "Tu ID de usuario",
+      "idCopied": "Compártelo para recibir pagos",
+      "createPassword": "Crear contraseña",
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "passwordSoon": "Próximamente",
+      "continueDashboard": "Ir al Dashboard"
     }
   },
   "dashboard": {

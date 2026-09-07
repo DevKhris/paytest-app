@@ -10,7 +10,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
       <SessionMonitor />
-      <Header title={t(i18n.landing.title)} />
+      <Header />
 
       <main className="flex-1 flex items-center justify-center p-6 relative overflow-hidden">
         <div className="absolute inset-0 pixel-dots opacity-20"></div>

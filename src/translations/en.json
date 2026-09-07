@@ -6,13 +6,21 @@
       "title": "Restricted access",
       "nameLabel": "Name",
       "namePlaceholder": "Your name",
-      "codeLabel": "Access code",
+      "codeLabel": "Room code",
       "codePlaceholder": "XXXXXXXX",
       "submit": "Continue",
       "loading": "Verifying...",
-      "error": "Invalid access code. Please try again.",
+      "error": "Invalid room code. Please try again.",
       "success": "Access granted. Redirecting...",
-      "empty": "Please enter a code"
+      "empty": "Please enter a code",
+      "setupTitle": "Creating your account",
+      "setupSubtitle": "Your account has been created successfully",
+      "yourId": "Your user ID",
+      "idCopied": "Share it to receive payments",
+      "createPassword": "Create password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "passwordSoon": "Coming soon",
+      "continueDashboard": "Go to Dashboard"
     }
   },
   "dashboard": {

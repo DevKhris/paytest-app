@@ -43,7 +43,7 @@ export default function DashboardContent() {
   if (!mounted || !user) {
     return (
       <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
-        <Header title={t(i18n.landing.title)} />
+        <Header />
         <main className="flex-1 flex items-center justify-center">
           <p className="animate-pulse text-[var(--color-text-secondary)]">
             Loading...
@@ -57,7 +57,6 @@ export default function DashboardContent() {
     <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
       <SessionMonitor />
       <Header
-        title={t(i18n.landing.title)}
         showCloseButton
         onClose={handleCloseSession}
         closeLabel={t(i18n.dashboard.close)}
