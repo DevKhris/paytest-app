@@ -1,4 +1,4 @@
-import type { User } from '@/types';
+import type { User } from '@/types/user';
 
 const STORAGE_KEYS = {
   USER: 'paytest_user',

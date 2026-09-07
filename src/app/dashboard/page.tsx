@@ -3,18 +3,27 @@
 import { useState, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import ProfileCard from '@/components/profile-card';
+import BalanceSection from '@/components/balance-section';
 import TransactionList from '@/components/transaction-list';
-import TransferForm from '@/components/transfer-form';
+import SendModal from '@/components/send-modal';
+import ReceiveModal from '@/components/receive-modal';
 import { getOrCreateUser, clearUser } from '@/lib/storage';
-import type { User, Transaction } from '@/types';
+import type { User } from '@/types/user';
+import type { Transaction } from '@/types/transaction';
 import { i18n } from '@/i18n/keys';
+
+type ModalType = 'send' | 'receive' | null;
 
 export default function Dashboard() {
   const [user] = useState<User | null>(() => getOrCreateUser());
   const [transactions] = useState<Transaction[]>([]);
+  const [activeModal, setActiveModal] = useState<ModalType>(null);
   const t = useTranslations();
   const router = useRouter();
+
+  const handleOpenSend = useCallback(() => setActiveModal('send'), []);
+  const handleOpenReceive = useCallback(() => setActiveModal('receive'), []);
+  const handleCloseModal = useCallback(() => setActiveModal(null), []);
 
   const handleCloseSession = useCallback(() => {
     clearUser();
@@ -58,10 +67,20 @@ export default function Dashboard() {
       </header>
 
       <main className="main-content dashboard">
-        <div className="dashboard-grid">
-          <ProfileCard user={user} />
-          <TransferForm />
-          <TransactionList transactions={transactions} />
+        <div className="dashboard-layout">
+          <section className="dashboard-section">
+            <h2 className="section-title">{t(i18n.dashboard.sections.funds)}</h2>
+            <BalanceSection
+              user={user}
+              onSendClick={handleOpenSend}
+              onReceiveClick={handleOpenReceive}
+            />
+          </section>
+
+          <section className="dashboard-section">
+            <h2 className="section-title">{t(i18n.dashboard.sections.activity)}</h2>
+            <TransactionList transactions={transactions} />
+          </section>
         </div>
       </main>
 
@@ -70,6 +89,16 @@ export default function Dashboard() {
           {t(i18n.footer.copyright)}
         </p>
       </footer>
+
+      <SendModal
+        isOpen={activeModal === 'send'}
+        onClose={handleCloseModal}
+        maxAmount={user.balance}
+      />
+      <ReceiveModal
+        isOpen={activeModal === 'receive'}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

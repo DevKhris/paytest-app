@@ -29,11 +29,16 @@ export const i18n = {
       amount: 'dashboard.transfer.amount',
       recipientId: 'dashboard.transfer.recipientId',
       submit: 'dashboard.transfer.submit',
+      cancel: 'dashboard.transfer.cancel',
       soon: 'dashboard.transfer.soon',
     },
     transactions: {
       title: 'dashboard.transactions.title',
       empty: 'dashboard.transactions.empty',
+    },
+    sections: {
+      funds: 'dashboard.sections.funds',
+      activity: 'dashboard.sections.activity',
     },
   },
   footer: {
