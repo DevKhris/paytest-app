@@ -8,6 +8,7 @@ import TransactionList from '@/components/transaction-list';
 import SendModal from '@/components/send-modal';
 import ReceiveModal from '@/components/receive-modal';
 import Header from '@/components/header';
+import SessionMonitor from '@/components/session-monitor';
 import { getOrCreateUser, clearUser } from '@/lib/storage';
 import type { User } from '@/types/user';
 import type { Transaction } from '@/types/transaction';
@@ -54,6 +55,7 @@ export default function DashboardContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
+      <SessionMonitor />
       <Header
         title={t(i18n.landing.title)}
         showCloseButton
@@ -85,11 +87,22 @@ export default function DashboardContent() {
         </div>
       </main>
 
-      <footer className="py-6 px-6 text-center border-t bg-[var(--color-bg-card)] border-[var(--color-border)]">
-        <div className="w-16 h-1 mx-auto rounded-full bg-[var(--gradient-start)]"></div>
-        <p className="text-sm mt-4 text-[var(--color-text-secondary)]">
-          {t(i18n.footer.copyright)}
-        </p>
+      <footer className="py-6 px-6 border-t bg-[var(--color-bg-card)] border-[var(--color-border)]">
+        <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <a 
+            href="https://github.com/DevKhris" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-sm cursor-pointer hover:opacity-80 transition-opacity duration-150"
+          >
+            <span className="text-[var(--color-text-secondary)]">Created by </span>
+            <span className="font-semibold text-[var(--gradient-start)]">DevKhris</span>
+          </a>
+          <div className="w-16 h-1 rounded-full bg-[var(--gradient-start)]"></div>
+          <p className="text-sm text-[var(--color-text-secondary)]">
+            {t(i18n.footer.copyright)}
+          </p>
+        </div>
       </footer>
 
       <SendModal
