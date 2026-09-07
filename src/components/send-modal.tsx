@@ -31,12 +31,12 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-fadeIn"
       style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md rounded-xl"
+        className="relative w-full max-w-md rounded-xl animate-slideUp"
         style={{ backgroundColor: 'var(--color-bg-card)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -48,7 +48,7 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
           <button 
             type="button" 
             onClick={handleClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150"
+            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer hover:bg-[var(--color-bg-subtle)]"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             <Cancel02Icon size={20} strokeWidth={1.5} />
@@ -71,7 +71,7 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               max={maxAmount}
-              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150"
+              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150 input-gradient-focus"
               style={{ 
                 borderColor: 'var(--color-border)',
                 color: 'var(--color-text-primary)',
@@ -95,7 +95,7 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
               value={recipientId}
               onChange={(e) => setRecipientId(e.target.value.toUpperCase())}
               maxLength={12}
-              className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 uppercase"
+              className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 uppercase input-gradient-focus"
               style={{ 
                 borderColor: 'var(--color-border)',
                 color: 'var(--color-text-primary)',
@@ -110,7 +110,7 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
           <button
             type="button"
             onClick={handleClose}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150"
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150 cursor-pointer hover:brightness-110"
             style={{ 
               borderColor: 'var(--color-border)',
               color: 'var(--color-text-primary)',
@@ -122,7 +122,7 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
           <button
             type="button"
             disabled={!isFormValid}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 cursor-pointer hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ 
               borderColor: 'var(--gradient-start)',
               backgroundColor: 'var(--gradient-start)',

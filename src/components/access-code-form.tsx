@@ -85,7 +85,7 @@ export default function AccessCodeForm() {
             errors.name 
               ? 'border-[var(--color-error)]' 
               : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
-          } disabled:opacity-60 disabled:cursor-not-allowed`}
+          } disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none`}
           style={{ 
             color: 'var(--color-text-primary)',
             backgroundColor: 'var(--color-bg)'
@@ -113,7 +113,7 @@ export default function AccessCodeForm() {
             errors.code 
               ? 'border-[var(--color-error)]' 
               : 'border-[var(--color-border)] focus:border-[var(--gradient-start)]'
-          } disabled:opacity-60 disabled:cursor-not-allowed`}
+          } disabled:opacity-60 disabled:cursor-not-allowed focus:outline-none`}
           style={{ 
             color: 'var(--color-text-primary)',
             backgroundColor: 'var(--color-bg)'
@@ -124,7 +124,7 @@ export default function AccessCodeForm() {
       <button
         type="submit"
         disabled={isSubmitting || isSuccess}
-        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
         style={{ 
           backgroundColor: 'var(--gradient-start)',
           borderColor: 'var(--gradient-start)',

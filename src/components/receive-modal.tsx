@@ -11,26 +11,31 @@ interface ReceiveModalProps {
 }
 
 export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
-  const [amount, setAmount] = useState('');
+  const [senderId, setSenderId] = useState('');
+  const [expectedAmount, setExpectedAmount] = useState('');
   const t = useTranslations();
 
   const handleClose = useCallback(() => {
-    setAmount('');
+    setSenderId('');
+    setExpectedAmount('');
     onClose();
   }, [onClose]);
 
-  const isFormValid = useMemo(() => amount.length > 0, [amount]);
+  const isFormValid = useMemo(() => 
+    senderId.length === 12 && expectedAmount.length > 0,
+    [senderId, expectedAmount]
+  );
 
   if (!isOpen) return null;
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 z-50"
+      className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-fadeIn"
       style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md rounded-xl"
+        className="relative w-full max-w-md rounded-xl animate-slideUp"
         style={{ backgroundColor: 'var(--color-bg-card)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -42,7 +47,7 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
           <button 
             type="button" 
             onClick={handleClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150"
+            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer hover:bg-[var(--color-bg-subtle)]"
             style={{ color: 'var(--color-text-secondary)' }}
           >
             <Cancel02Icon size={20} strokeWidth={1.5} />
@@ -52,19 +57,43 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
         <div className="p-5 space-y-4">
           <div className="space-y-2">
             <label 
-              htmlFor="receive-amount" 
+              htmlFor="sender-id" 
               className="block text-sm font-semibold transition-colors duration-200"
               style={{ color: 'var(--color-text-primary)' }}
             >
-              {t(i18n.dashboard.transfer.amount)}
+              {t(i18n.dashboard.transfer.recipientId)}
             </label>
             <input
-              id="receive-amount"
+              id="sender-id"
+              type="text"
+              placeholder="XXXXXXXXXXXX"
+              value={senderId}
+              onChange={(e) => setSenderId(e.target.value.toUpperCase())}
+              maxLength={12}
+              className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text uppercase input-gradient-focus"
+              style={{ 
+                borderColor: 'var(--color-border)',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-bg)'
+              }}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label 
+              htmlFor="expected-amount" 
+              className="block text-sm font-semibold transition-colors duration-200"
+              style={{ color: 'var(--color-text-primary)' }}
+            >
+              {t(i18n.dashboard.transfer.expectedAmount)}
+            </label>
+            <input
+              id="expected-amount"
               type="number"
               placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150"
+              value={expectedAmount}
+              onChange={(e) => setExpectedAmount(e.target.value)}
+              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text input-gradient-focus"
               style={{ 
                 borderColor: 'var(--color-border)',
                 color: 'var(--color-text-primary)',
@@ -79,7 +108,7 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
           <button
             type="button"
             onClick={handleClose}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150"
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150 cursor-pointer hover:brightness-110"
             style={{ 
               borderColor: 'var(--color-border)',
               color: 'var(--color-text-primary)',
@@ -91,7 +120,7 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
           <button
             type="button"
             disabled={!isFormValid}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 cursor-pointer hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{ 
               borderColor: 'var(--gradient-start)',
               backgroundColor: 'var(--gradient-start)',

@@ -1,8 +1,8 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
-import { ArrowUpLeft02Icon, ArrowDownRight02Icon } from 'hugeicons-react';
+import { ArrowUpLeft02Icon, ArrowDownRight02Icon, Copy01Icon, CheckmarkCircle02Icon } from 'hugeicons-react';
 import type { User } from '@/types/user';
 import { i18n } from '@/i18n/keys';
 
@@ -14,6 +14,7 @@ interface BalanceSectionProps {
 
 export default function BalanceSection({ user, onSendClick, onReceiveClick }: BalanceSectionProps) {
   const t = useTranslations();
+  const [copied, setCopied] = useState(false);
 
   const formattedBalance = useMemo(() => 
     new Intl.NumberFormat('en-US', {
@@ -24,6 +25,16 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
   );
 
   const displayId = user.id;
+
+  const handleCopyId = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(user.id);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  }, [user.id]);
 
   return (
     <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200" 
@@ -51,16 +62,31 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
         <span className="text-xs uppercase tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
           {t(i18n.dashboard.profile.id)}
         </span>
-        <span className="font-mono text-sm font-semibold tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
-          {displayId}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-sm font-semibold tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+            {displayId}
+          </span>
+          <button
+            type="button"
+            onClick={handleCopyId}
+            className="flex items-center justify-center w-7 h-7 rounded-md transition-all duration-150 hover:scale-110 cursor-pointer"
+            style={{ color: copied ? 'var(--gradient-start)' : 'var(--color-text-secondary)' }}
+            aria-label="Copy ID"
+          >
+            {copied ? (
+              <CheckmarkCircle02Icon size={16} strokeWidth={2} />
+            ) : (
+              <Copy01Icon size={16} strokeWidth={1.5} />
+            )}
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
         <button
           type="button"
           onClick={onSendClick}
-          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 transition-all duration-150"
+          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer"
           style={{ 
             backgroundColor: 'var(--gradient-start)',
             borderColor: 'var(--gradient-start)',
@@ -73,7 +99,7 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
         <button
           type="button"
           onClick={onReceiveClick}
-          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 border-dashed transition-all duration-150"
+          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 border-dashed transition-all duration-150 hover:brightness-110 cursor-pointer"
           style={{ 
             backgroundColor: 'transparent',
             borderColor: 'var(--color-border)',

@@ -30,6 +30,7 @@
       "send": "Send",
       "receive": "Receive",
       "amount": "Amount",
+      "expectedAmount": "Expected amount",
       "recipientId": "Recipient ID",
       "submit": "Send",
       "cancel": "Cancel",

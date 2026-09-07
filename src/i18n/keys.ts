@@ -30,6 +30,7 @@ export const i18n = {
       send: 'dashboard.transfer.send',
       receive: 'dashboard.transfer.receive',
       amount: 'dashboard.transfer.amount',
+      expectedAmount: 'dashboard.transfer.expectedAmount',
       recipientId: 'dashboard.transfer.recipientId',
       submit: 'dashboard.transfer.submit',
       cancel: 'dashboard.transfer.cancel',

@@ -30,6 +30,7 @@
       "send": "Enviar",
       "receive": "Recibir",
       "amount": "Monto",
+      "expectedAmount": "Monto esperado",
       "recipientId": "ID del receptor",
       "submit": "Enviar",
       "cancel": "Cancelar",

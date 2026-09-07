@@ -26,7 +26,7 @@ export default function Header({ title, showCloseButton, onClose, closeLabel }: 
             <button
               type="button"
               onClick={onClose}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-dashed transition-all duration-150 hover:border-solid"
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-dashed transition-all duration-150 cursor-pointer hover:brightness-110"
               style={{ 
                 color: 'var(--color-text-secondary)',
                 backgroundColor: 'var(--color-bg-subtle)',

@@ -47,7 +47,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
         <button
           type="button"
           onClick={tabs.transactions.onClick}
-          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 ${
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer hover:brightness-110 ${
             tabs.transactions.isActive ? 'font-semibold' : ''
           }`}
           style={{
@@ -61,7 +61,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
         <button
           type="button"
           onClick={tabs.contacts.onClick}
-          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 ${
+          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer hover:brightness-110 ${
             tabs.contacts.isActive ? 'font-semibold' : ''
           }`}
           style={{
@@ -92,7 +92,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
                 <li
                   key={tx.id}
                   onClick={() => handleTransactionClick(tx.id)}
-                  className="flex items-center gap-4 p-4 rounded-lg border border-transparent transition-all duration-150 cursor-pointer"
+                  className="flex items-center gap-4 p-4 rounded-lg border border-transparent transition-all duration-150 cursor-pointer hover:brightness-125"
                   style={{ backgroundColor: 'var(--color-bg-subtle)' }}
                 >
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center"
