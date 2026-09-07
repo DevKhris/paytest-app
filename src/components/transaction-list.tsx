@@ -40,20 +40,14 @@ export default function TransactionList({ transactions }: TransactionListProps) 
   }), [t, activeTab, handleTabChange]);
 
   return (
-    <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200" 
-         style={{ backgroundColor: 'var(--color-bg-card)' }}>
-      <div className="flex gap-2 p-1 mb-6 rounded-lg border transition-colors duration-200"
-           style={{ backgroundColor: 'var(--color-bg-subtle)', borderColor: 'var(--color-border)' }}>
+    <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200 bg-[var(--color-bg-card)]"> 
+      <div className="flex gap-2 p-1 mb-6 rounded-lg border transition-colors duration-200 bg-[var(--color-bg-subtle)] border-[var(--color-border)]">
         <button
           type="button"
           onClick={tabs.transactions.onClick}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer hover:brightness-110 ${
             tabs.transactions.isActive ? 'font-semibold' : ''
-          }`}
-          style={{
-            backgroundColor: tabs.transactions.isActive ? 'var(--color-bg-card)' : 'transparent',
-            color: tabs.transactions.isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)'
-          }}
+          } ${tabs.transactions.isActive ? 'bg-[var(--color-bg-card)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)]'}`}
         >
           <EyeIcon size={16} strokeWidth={1.5} />
           {tabs.transactions.label}
@@ -63,11 +57,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
           onClick={tabs.contacts.onClick}
           className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-md transition-all duration-150 cursor-pointer hover:brightness-110 ${
             tabs.contacts.isActive ? 'font-semibold' : ''
-          }`}
-          style={{
-            backgroundColor: tabs.contacts.isActive ? 'var(--color-bg-card)' : 'transparent',
-            color: tabs.contacts.isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)'
-          }}
+          } ${tabs.contacts.isActive ? 'bg-[var(--color-bg-card)] text-[var(--color-text-primary)]' : 'text-[var(--color-text-secondary)]'}`}
         >
           <UserIcon size={16} strokeWidth={1.5} />
           {tabs.contacts.label}
@@ -78,11 +68,10 @@ export default function TransactionList({ transactions }: TransactionListProps) 
         {activeTab === 'transactions' && (
           isEmpty ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
-              <div className="w-16 h-16 mb-4 rounded-full border-2 border-dashed flex items-center justify-center transition-colors duration-200"
-                   style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-subtle)' }}>
-                <span className="text-2xl transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>∅</span>
+              <div className="w-16 h-16 mb-4 rounded-full border-2 border-dashed flex items-center justify-center transition-colors duration-200 border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
+                <span className="text-2xl transition-colors duration-200 text-[var(--color-text-secondary)]">∅</span>
               </div>
-              <p className="transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+              <p className="transition-colors duration-200 text-[var(--color-text-secondary)]">
                 {t(i18n.dashboard.transactions.empty)}
               </p>
             </div>
@@ -92,8 +81,7 @@ export default function TransactionList({ transactions }: TransactionListProps) 
                 <li
                   key={tx.id}
                   onClick={() => handleTransactionClick(tx.id)}
-                  className="flex items-center gap-4 p-4 rounded-lg border border-transparent transition-all duration-150 cursor-pointer hover:brightness-125"
-                  style={{ backgroundColor: 'var(--color-bg-subtle)' }}
+                  className="flex items-center gap-4 p-4 rounded-lg border border-transparent transition-all duration-150 cursor-pointer hover:brightness-125 bg-[var(--color-bg-subtle)]"
                 >
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center"
                        style={{ 
@@ -103,10 +91,10 @@ export default function TransactionList({ transactions }: TransactionListProps) 
                     {tx.type === 'sent' ? '↑' : '↓'}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium transition-colors duration-200" style={{ color: 'var(--color-text-primary)' }}>
+                    <p className="text-sm font-medium transition-colors duration-200 text-[var(--color-text-primary)]">
                       {tx.type === 'sent' ? t(i18n.dashboard.transfer.send) : t(i18n.dashboard.transfer.receive)}
                     </p>
-                    <p className="font-mono text-xs transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+                    <p className="font-mono text-xs transition-colors duration-200 text-[var(--color-text-secondary)]">
                       {tx.counterpartyId}
                     </p>
                   </div>
@@ -122,11 +110,10 @@ export default function TransactionList({ transactions }: TransactionListProps) 
 
         {activeTab === 'contacts' && (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-16 h-16 mb-4 rounded-full border-2 border-dashed flex items-center justify-center transition-colors duration-200"
-                 style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-subtle)' }}>
-              <UserIcon size={24} strokeWidth={1.5} className="transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }} />
+            <div className="w-16 h-16 mb-4 rounded-full border-2 border-dashed flex items-center justify-center transition-colors duration-200 border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
+              <UserIcon size={24} strokeWidth={1.5} className="transition-colors duration-200 text-[var(--color-text-secondary)]" />
             </div>
-            <p className="transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+            <p className="transition-colors duration-200 text-[var(--color-text-secondary)]">
               {t(i18n.dashboard.transactions.noContacts)}
             </p>
           </div>

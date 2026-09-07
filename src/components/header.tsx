@@ -10,13 +10,12 @@ interface HeaderProps {
 
 export default function Header({ title, showCloseButton, onClose, closeLabel }: HeaderProps) {
   return (
-    <header className="relative border-b-2 transition-colors duration-200" 
-            style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-bg-card)' }}>
-      <div className="absolute inset-x-0 top-0 h-0.5" style={{ background: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))' }}></div>
+    <header className="relative border-b-2 transition-colors duration-200 border-[var(--color-border)] bg-[var(--color-bg-card)]">
+      <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[var(--gradient-start)] to-[var(--gradient-end)]"></div>
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="relative pl-8">
-            <span className="absolute left-0 top-1/2 -translate-y-1/2 transition-colors duration-200" style={{ color: 'var(--gradient-start)' }}>◆</span>
-          <h1 className="text-xl font-bold tracking-tight transition-colors duration-200" style={{ color: 'var(--color-text-primary)' }}>
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 transition-colors duration-200 text-[var(--gradient-start)]">◆</span>
+          <h1 className="text-xl font-bold tracking-tight transition-colors duration-200 text-[var(--color-text-primary)]">
             {title}
           </h1>
         </div>
@@ -26,12 +25,7 @@ export default function Header({ title, showCloseButton, onClose, closeLabel }: 
             <button
               type="button"
               onClick={onClose}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-dashed transition-all duration-150 cursor-pointer hover:brightness-110"
-              style={{ 
-                color: 'var(--color-text-secondary)',
-                backgroundColor: 'var(--color-bg-subtle)',
-                borderColor: 'var(--color-border)'
-              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-dashed transition-all duration-150 cursor-pointer hover:brightness-110 bg-[var(--color-bg-subtle)] border-[var(--color-border)] text-[var(--color-text-secondary)]"
             >
               <Logout01Icon size={16} strokeWidth={1.5} />
               {closeLabel}

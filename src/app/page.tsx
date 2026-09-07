@@ -28,9 +28,9 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="py-6 px-6 text-center border-t" style={{ backgroundColor: 'var(--color-bg-card)', borderColor: 'var(--color-border)' }}>
-        <div className="w-16 h-1 mx-auto rounded-full" style={{ backgroundColor: 'var(--gradient-start)' }}></div>
-        <p className="text-sm mt-4" style={{ color: 'var(--color-text-secondary)' }}>
+      <footer className="py-6 px-6 text-center border-t bg-[var(--color-bg-card)] border-[var(--color-border)]">
+        <div className="w-16 h-1 mx-auto rounded-full bg-[var(--gradient-start)]"></div>
+        <p className="text-sm mt-4 text-[var(--color-text-secondary)]">
           {t(i18n.footer.copyright)}
         </p>
       </footer>

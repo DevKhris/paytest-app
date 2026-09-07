@@ -30,25 +30,21 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
 
   return (
     <div 
-      className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-fadeIn"
-      style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)', backdropFilter: 'blur(4px)' }}
+      className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-fadeIn bg-black/60 backdrop-blur-sm"
       onClick={handleClose}
     >
       <div 
-        className="relative w-full max-w-md rounded-xl animate-slideUp"
-        style={{ backgroundColor: 'var(--color-bg-card)', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}
+        className="relative w-full max-w-md rounded-xl animate-slideUp bg-[var(--color-bg-card)] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-5 border-b transition-colors duration-200"
-             style={{ borderColor: 'var(--color-border)' }}>
-          <h2 className="text-lg font-semibold transition-colors duration-200" style={{ color: 'var(--color-text-primary)' }}>
+        <div className="flex items-center justify-between p-5 border-b transition-colors duration-200 border-[var(--color-border)]">
+          <h2 className="text-lg font-semibold transition-colors duration-200 text-[var(--color-text-primary)]">
             {t(i18n.dashboard.transfer.receive)}
           </h2>
           <button 
             type="button" 
             onClick={handleClose}
-            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer hover:bg-[var(--color-bg-subtle)]"
-            style={{ color: 'var(--color-text-secondary)' }}
+            className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer hover:bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]"
           >
             <Cancel02Icon size={20} strokeWidth={1.5} />
           </button>
@@ -58,8 +54,7 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
           <div className="space-y-2">
             <label 
               htmlFor="sender-id" 
-              className="block text-sm font-semibold transition-colors duration-200"
-              style={{ color: 'var(--color-text-primary)' }}
+              className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
             >
               {t(i18n.dashboard.transfer.recipientId)}
             </label>
@@ -70,20 +65,14 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
               value={senderId}
               onChange={(e) => setSenderId(e.target.value.toUpperCase())}
               maxLength={12}
-              className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text uppercase input-gradient-focus"
-              style={{ 
-                borderColor: 'var(--color-border)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-bg)'
-              }}
+              className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text uppercase input-gradient-focus text-[var(--color-text-primary)] bg-[var(--color-bg)]"
             />
           </div>
 
           <div className="space-y-2">
             <label 
               htmlFor="expected-amount" 
-              className="block text-sm font-semibold transition-colors duration-200"
-              style={{ color: 'var(--color-text-primary)' }}
+              className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
             >
               {t(i18n.dashboard.transfer.expectedAmount)}
             </label>
@@ -93,39 +82,23 @@ export default function ReceiveModal({ isOpen, onClose }: ReceiveModalProps) {
               placeholder="0.00"
               value={expectedAmount}
               onChange={(e) => setExpectedAmount(e.target.value)}
-              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text input-gradient-focus"
-              style={{ 
-                borderColor: 'var(--color-border)',
-                color: 'var(--color-text-primary)',
-                backgroundColor: 'var(--color-bg)'
-              }}
+              className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150 cursor-text input-gradient-focus text-[var(--color-text-primary)] bg-[var(--color-bg)]"
             />
           </div>
         </div>
 
-        <div className="flex gap-3 p-5 border-t transition-colors duration-200"
-             style={{ borderColor: 'var(--color-border)' }}>
+        <div className="flex gap-3 p-5 border-t transition-colors duration-200 border-[var(--color-border)]">
           <button
             type="button"
             onClick={handleClose}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150 cursor-pointer hover:brightness-110"
-            style={{ 
-              borderColor: 'var(--color-border)',
-              color: 'var(--color-text-primary)',
-              backgroundColor: 'transparent'
-            }}
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150 cursor-pointer hover:brightness-110 border-[var(--color-border)] text-[var(--color-text-primary)] bg-transparent"
           >
             {t(i18n.dashboard.transfer.cancel)}
           </button>
           <button
             type="button"
             disabled={!isFormValid}
-            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 cursor-pointer hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ 
-              borderColor: 'var(--gradient-start)',
-              backgroundColor: 'var(--gradient-start)',
-              color: '#FFFFFF'
-            }}
+            className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 cursor-pointer hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white"
           >
             {t(i18n.dashboard.transfer.submit)}
           </button>

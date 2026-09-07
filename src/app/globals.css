@@ -111,17 +111,12 @@ body {
 
 /* Gradient border for inputs on focus */
 .input-gradient-focus {
-  position: relative;
-  border: 2px solid var(--color-border);
+  border: 2px solid var(--color-border) !important;
   transition: border-color 150ms ease;
 }
 
 .input-gradient-focus:focus-within {
-  border-color: transparent;
+  border-color: transparent !important;
   background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box,
-              linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) border-box;
-}
-
-.input-gradient-focus:focus-within:focus {
-  outline: none;
+              linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) border-box !important;
 }

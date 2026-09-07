@@ -65,13 +65,18 @@ export default function AccessCodeForm() {
 
   const inputBaseClass = 'w-full px-4 py-3 text-base font-medium bg-transparent border-2 rounded-lg outline-none transition-all duration-150 placeholder:font-mono placeholder:tracking-widest';
 
+  const getStatusClasses = () => {
+    if (statusClass === 'success') return 'border-[var(--color-success)] bg-[var(--color-success-bg)] text-[var(--color-success)]';
+    if (statusClass === 'error') return 'border-[var(--color-error)] bg-[var(--color-error-bg)] text-[var(--color-error)]';
+    return 'opacity-0';
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       <div className="space-y-2">
         <label 
           htmlFor="name" 
-          className="block text-sm font-semibold transition-colors duration-200"
-          style={{ color: 'var(--color-text-primary)' }}
+          className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
         >
           {t(i18n.landing.form.nameLabel)}
         </label>
@@ -85,19 +90,14 @@ export default function AccessCodeForm() {
             errors.name 
               ? 'border-[var(--color-error)]' 
               : ''
-          } disabled:opacity-60 disabled:cursor-not-allowed`}
-          style={{ 
-            color: 'var(--color-text-primary)',
-            backgroundColor: 'var(--color-bg)'
-          }}
+          } disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-text-primary)] bg-[var(--color-bg)]`}
         />
       </div>
 
       <div className="space-y-2">
         <label 
           htmlFor="code" 
-          className="block text-sm font-semibold transition-colors duration-200"
-          style={{ color: 'var(--color-text-primary)' }}
+          className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
         >
           {t(i18n.landing.form.codeLabel)}
         </label>
@@ -113,23 +113,14 @@ export default function AccessCodeForm() {
             errors.code 
               ? 'border-[var(--color-error)]' 
               : ''
-          } disabled:opacity-60 disabled:cursor-not-allowed`}
-          style={{ 
-            color: 'var(--color-text-primary)',
-            backgroundColor: 'var(--color-bg)'
-          }}
+          } disabled:opacity-60 disabled:cursor-not-allowed text-[var(--color-text-primary)] bg-[var(--color-bg)]`}
         />
       </div>
 
       <button
         type="submit"
         disabled={isSubmitting || isSuccess}
-        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
-        style={{ 
-          backgroundColor: 'var(--gradient-start)',
-          borderColor: 'var(--gradient-start)',
-          color: '#FFFFFF'
-        }}
+        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white"
       >
         {isSubmitting ? (
           <span className="animate-pulse">{t(i18n.landing.form.loading)}</span>
@@ -144,14 +135,7 @@ export default function AccessCodeForm() {
       </button>
 
       <div 
-        className={`p-3 rounded-lg text-sm text-center font-medium transition-all duration-200 ${
-          statusClass === 'success' ? 'border' : statusClass === 'error' ? 'border' : 'opacity-0'
-        }`}
-        style={{
-          backgroundColor: statusClass === 'success' ? 'var(--color-success-bg)' : statusClass === 'error' ? 'var(--color-error-bg)' : 'transparent',
-          borderColor: statusClass === 'success' ? 'var(--color-success)' : statusClass === 'error' ? 'var(--color-error)' : 'transparent',
-          color: statusClass === 'success' ? 'var(--color-success)' : statusClass === 'error' ? 'var(--color-error)' : 'transparent'
-        }}
+        className={`p-3 rounded-lg text-sm text-center font-medium transition-all duration-200 border ${getStatusClasses()}`}
       >
         {statusMessage}
       </div>

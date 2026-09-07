@@ -37,10 +37,9 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
   }, [user.id]);
 
   return (
-    <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200" 
-         style={{ backgroundColor: 'var(--color-bg-card)' }}>
+    <div className="relative p-6 rounded-xl neon-border glow-border transition-colors duration-200 bg-[var(--color-bg-card)]"> 
       <div className="mb-6">
-        <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+        <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200 text-[var(--color-text-secondary)]">
           {t(i18n.dashboard.profile.welcomeBack)}
         </p>
         <p className="text-2xl font-bold uppercase tracking-wider bg-clip-text" style={{ color: 'transparent', backgroundImage: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))' }}>
@@ -49,21 +48,20 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
       </div>
       
       <div className="mb-6">
-        <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+        <p className="text-xs uppercase tracking-wider mb-1 transition-colors duration-200 text-[var(--color-text-secondary)]">
           {t(i18n.dashboard.profile.balance)}
         </p>
-        <p className="text-4xl font-bold tracking-tighter font-mono transition-colors duration-200" style={{ color: 'var(--gradient-start)' }}>
+        <p className="text-4xl font-bold tracking-tighter font-mono transition-colors duration-200 text-[var(--gradient-start)]">
           {formattedBalance}
         </p>
       </div>
 
-      <div className="flex items-center justify-between p-3 mb-6 rounded-lg border border-dashed transition-colors duration-200"
-           style={{ borderColor: 'var(--color-border)' }}>
-        <span className="text-xs uppercase tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+      <div className="flex items-center justify-between p-3 mb-6 rounded-lg border border-dashed transition-colors duration-200 border-[var(--color-border)]">
+        <span className="text-xs uppercase tracking-wider transition-colors duration-200 text-[var(--color-text-secondary)]">
           {t(i18n.dashboard.profile.id)}
         </span>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-sm font-semibold tracking-wider transition-colors duration-200" style={{ color: 'var(--color-text-secondary)' }}>
+          <span className="font-mono text-sm font-semibold tracking-wider transition-colors duration-200 text-[var(--color-text-secondary)]">
             {displayId}
           </span>
           <button
@@ -86,12 +84,7 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
         <button
           type="button"
           onClick={onSendClick}
-          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer"
-          style={{ 
-            backgroundColor: 'var(--gradient-start)',
-            borderColor: 'var(--gradient-start)',
-            color: '#FFFFFF'
-          }}
+          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white"
         >
           <ArrowUpLeft02Icon size={18} strokeWidth={2} />
           {t(i18n.dashboard.transfer.send)}
@@ -99,12 +92,7 @@ export default function BalanceSection({ user, onSendClick, onReceiveClick }: Ba
         <button
           type="button"
           onClick={onReceiveClick}
-          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 border-dashed transition-all duration-150 hover:brightness-110 cursor-pointer"
-          style={{ 
-            backgroundColor: 'transparent',
-            borderColor: 'var(--color-border)',
-            color: 'var(--color-text-primary)'
-          }}
+          className="flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold rounded-lg border-2 border-dashed transition-all duration-150 hover:brightness-110 cursor-pointer bg-transparent border-[var(--color-border)] text-[var(--color-text-primary)]"
         >
           <ArrowDownRight02Icon size={18} strokeWidth={2} />
           {t(i18n.dashboard.transfer.receive)}
