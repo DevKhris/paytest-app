@@ -4,8 +4,10 @@
     "subtitle": "Ingresa tu código de acceso para continuar",
     "form": {
       "title": "Acceso restringido",
-      "label": "Código de acceso",
-      "placeholder": "XXXXXXXX",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "codeLabel": "Código de acceso",
+      "codePlaceholder": "XXXXXXXX",
       "submit": "Continuar",
       "loading": "Verificando...",
       "error": "Código de acceso inválido. Por favor intenta de nuevo.",
@@ -20,7 +22,8 @@
     "profile": {
       "title": "Tu cuenta",
       "id": "ID",
-      "balance": "Saldo"
+      "balance": "Saldo",
+      "name": "Nombre"
     },
     "transfer": {
       "title": "Enviar / Recibir",
@@ -34,7 +37,9 @@
     },
     "transactions": {
       "title": "Transacciones",
-      "empty": "Sin transacciones aún"
+      "empty": "Sin transacciones aún",
+      "contacts": "Contactos",
+      "noContacts": "Sin contactos aún"
     },
     "sections": {
       "funds": "Fondos",

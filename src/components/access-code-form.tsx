@@ -1,105 +1,160 @@
 'use client';
 
 import { useState, useCallback, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { CheckmarkCircle02Icon } from 'hugeicons-react';
 import { ACCESS_CODE } from '@/lib/constants';
 import { i18n } from '@/i18n/keys';
+import { createUser, generateId } from '@/lib/storage';
 
-type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+const formSchema = z.object({
+  name: z.string().min(1),
+  code: z.string().min(1),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function AccessCodeForm() {
-  const [status, setStatus] = useState<FormStatus>('idle');
-  const [inputValue, setInputValue] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const t = useTranslations();
 
-  const statusMessages = useMemo(() => ({
-    idle: '',
-    loading: t(i18n.landing.form.loading),
-    error: t(i18n.landing.form.error),
-    success: t(i18n.landing.form.success),
-  }), [t]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError,
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      code: '',
+    },
+  });
 
-  const buttonMessages = useMemo(() => ({
-    idle: t(i18n.landing.form.submit),
-    loading: t(i18n.landing.form.loading),
-    success: '✓',
-    error: t(i18n.landing.form.submit),
-  }), [t]);
+  const statusMessage = useMemo(() => {
+    if (isSuccess) return t(i18n.landing.form.success);
+    if (errors.code) return t(i18n.landing.form.error);
+    return '';
+  }, [isSuccess, errors.code, t]);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
+  const statusClass = useMemo(() => {
+    if (isSuccess) return 'success';
+    if (errors.code) return 'error';
+    return '';
+  }, [isSuccess, errors.code]);
 
-    if (!inputValue.trim()) {
-      setStatus('error');
+  const onSubmit = useCallback(async (data: FormData) => {
+    if (data.code.trim().toUpperCase() !== ACCESS_CODE) {
+      setError('code', { message: 'invalid' });
       return;
     }
 
-    setStatus('loading');
+    const userId = generateId();
+    createUser(userId, data.name.trim());
 
-    await new Promise((resolve) => setTimeout(resolve, 600));
+    setIsSuccess(true);
+    setTimeout(() => {
+      router.push('/dashboard');
+    }, 300);
+  }, [router, setError]);
 
-    if (inputValue.trim().toUpperCase() === ACCESS_CODE) {
-      setStatus('success');
-      setTimeout(() => {
-        router.push('/dashboard');
-      }, 300);
-    } else {
-      setStatus('error');
-      setInputValue('');
-    }
-  }, [inputValue, router]);
-
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    if (status === 'error') {
-      setStatus('idle');
-    }
-  }, [status]);
-
-  const isInputDisabled = useMemo(() => 
-    status === 'loading' || status === 'success',
-    [status]
-  );
-
-  const isButtonDisabled = useMemo(() => 
-    status === 'loading' || status === 'success',
-    [status]
-  );
+  const inputBaseClass = 'w-full px-4 py-3 text-base font-medium bg-transparent border-2 rounded-lg outline-none transition-all duration-150 placeholder:font-mono placeholder:tracking-widest';
 
   return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="access-code" className="form-label">
-            {t(i18n.landing.form.label)}
-          </label>
-          <input
-            id="access-code"
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder={t(i18n.landing.form.placeholder)}
-            className={`form-input ${status === 'error' ? 'error' : ''}`}
-            disabled={isInputDisabled}
-            autoComplete="off"
-            spellCheck={false}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="submit-btn"
-          disabled={isButtonDisabled}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <div className="space-y-2">
+        <label 
+          htmlFor="name" 
+          className="block text-sm font-semibold transition-colors duration-200"
+          style={{ color: 'var(--color-text-primary)' }}
         >
-          {buttonMessages[status]}
-        </button>
-      </form>
-
-      <div className={`status-message ${status !== 'idle' ? 'visible' : ''} ${status}`}>
-        {statusMessages[status]}
+          {t(i18n.landing.form.nameLabel)}
+        </label>
+        <input
+          id="name"
+          type="text"
+          {...register('name')}
+          placeholder={t(i18n.landing.form.namePlaceholder)}
+          disabled={isSubmitting || isSuccess}
+          className={`${inputBaseClass} ${
+            errors.name 
+              ? 'border-[var(--color-error)]' 
+              : 'border-[var(--color-border)] focus:border-[var(--color-neon-cyan)]'
+          } disabled:opacity-60 disabled:cursor-not-allowed`}
+          style={{ 
+            color: 'var(--color-text-primary)',
+            backgroundColor: 'var(--color-bg)'
+          }}
+        />
       </div>
-    </div>
+
+      <div className="space-y-2">
+        <label 
+          htmlFor="code" 
+          className="block text-sm font-semibold transition-colors duration-200"
+          style={{ color: 'var(--color-text-primary)' }}
+        >
+          {t(i18n.landing.form.codeLabel)}
+        </label>
+        <input
+          id="code"
+          type="text"
+          {...register('code')}
+          placeholder={t(i18n.landing.form.codePlaceholder)}
+          disabled={isSubmitting || isSuccess}
+          autoComplete="off"
+          spellCheck={false}
+          className={`${inputBaseClass} ${
+            errors.code 
+              ? 'border-[var(--color-error)]' 
+              : 'border-[var(--color-border)] focus:border-[var(--color-neon-cyan)]'
+          } disabled:opacity-60 disabled:cursor-not-allowed`}
+          style={{ 
+            color: 'var(--color-text-primary)',
+            backgroundColor: 'var(--color-bg)'
+          }}
+        />
+      </div>
+
+      <button
+        type="submit"
+        disabled={isSubmitting || isSuccess}
+        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+        style={{ 
+          backgroundColor: 'var(--color-neon-cyan)',
+          borderColor: 'var(--color-neon-cyan)',
+          color: '#0D0D0D'
+        }}
+      >
+        {isSubmitting ? (
+          <span className="animate-pulse">{t(i18n.landing.form.loading)}</span>
+        ) : isSuccess ? (
+          <>
+            <CheckmarkCircle02Icon size={20} strokeWidth={2} />
+            <span>✓</span>
+          </>
+        ) : (
+          t(i18n.landing.form.submit)
+        )}
+      </button>
+
+      <div 
+        className={`p-3 rounded-lg text-sm text-center font-medium transition-all duration-200 ${
+          statusClass === 'success' ? 'border' : statusClass === 'error' ? 'border' : 'opacity-0'
+        }`}
+        style={{
+          backgroundColor: statusClass === 'success' ? 'var(--color-success-bg)' : statusClass === 'error' ? 'var(--color-error-bg)' : 'transparent',
+          borderColor: statusClass === 'success' ? 'var(--color-success)' : statusClass === 'error' ? 'var(--color-error)' : 'transparent',
+          color: statusClass === 'success' ? 'var(--color-success)' : statusClass === 'error' ? 'var(--color-error)' : 'transparent'
+        }}
+      >
+        {statusMessage}
+      </div>
+    </form>
   );
 }

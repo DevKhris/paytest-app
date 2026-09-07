@@ -1,25 +1,26 @@
 import { getTranslations } from 'next-intl/server';
 import AccessCodeForm from '@/components/access-code-form';
+import Header from '@/components/header';
 import { i18n } from '@/i18n/keys';
 
 export default async function HomePage() {
   const t = await getTranslations();
 
   return (
-    <div className="page-wrapper">
-      <header className="header">
-        <div className="header-content">
-          <div className="logo">
-            {t(i18n.landing.title)}
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
+      <Header title={t(i18n.landing.title)} />
 
-      <main className="main-content">
-        <div className="card">
-          <div className="card-header">
-            <h1 className="card-title">{t(i18n.landing.form.title)}</h1>
-            <p className="card-subtitle">
+      <main className="flex-1 flex items-center justify-center p-6 relative overflow-hidden">
+        <div className="absolute inset-0 pixel-dots opacity-20"></div>
+        <div className="absolute top-8 left-8 w-24 h-24 border-2 border-dashed border-[var(--color-border)] rounded-full opacity-30"></div>
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-2 border-dashed border-[var(--neon-cyan)] rounded-full opacity-20"></div>
+        
+        <div className="relative w-full max-w-md p-8 rounded-xl bg-[var(--color-bg-card)] neon-border glow-border">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold tracking-tight text-[var(--color-text-primary)] mb-2">
+              {t(i18n.landing.form.title)}
+            </h2>
+            <p className="text-sm text-[var(--color-text-secondary)]">
               {t(i18n.landing.subtitle)}
             </p>
           </div>
@@ -27,8 +28,9 @@ export default async function HomePage() {
         </div>
       </main>
 
-      <footer className="footer">
-        <p className="footer-text">
+      <footer className="relative py-6 px-6 bg-[var(--color-bg-card)] border-t-2 border-[var(--color-border)] text-center">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-1 bg-gradient-to-r from-[var(--neon-cyan)] via-[var(--neon-pink)] to-[var(--neon-purple)] rounded-full"></div>
+        <p className="text-sm text-[var(--color-text-secondary)]">
           {t(i18n.footer.copyright)}
         </p>
       </footer>

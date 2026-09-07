@@ -4,8 +4,10 @@
     "subtitle": "Enter your access code to continue",
     "form": {
       "title": "Restricted access",
-      "label": "Access code",
-      "placeholder": "XXXXXXXX",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "codeLabel": "Access code",
+      "codePlaceholder": "XXXXXXXX",
       "submit": "Continue",
       "loading": "Verifying...",
       "error": "Invalid access code. Please try again.",
@@ -20,7 +22,8 @@
     "profile": {
       "title": "Your account",
       "id": "ID",
-      "balance": "Balance"
+      "balance": "Balance",
+      "name": "Name"
     },
     "transfer": {
       "title": "Send / Receive",
@@ -34,7 +37,9 @@
     },
     "transactions": {
       "title": "Transactions",
-      "empty": "No transactions yet"
+      "empty": "No transactions yet",
+      "contacts": "Contacts",
+      "noContacts": "No contacts yet"
     },
     "sections": {
       "funds": "Funds",

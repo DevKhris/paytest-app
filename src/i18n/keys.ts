@@ -4,8 +4,10 @@ export const i18n = {
     subtitle: 'landing.subtitle',
     form: {
       title: 'landing.form.title',
-      label: 'landing.form.label',
-      placeholder: 'landing.form.placeholder',
+      nameLabel: 'landing.form.nameLabel',
+      namePlaceholder: 'landing.form.namePlaceholder',
+      codeLabel: 'landing.form.codeLabel',
+      codePlaceholder: 'landing.form.codePlaceholder',
       submit: 'landing.form.submit',
       loading: 'landing.form.loading',
       error: 'landing.form.error',
@@ -21,6 +23,7 @@ export const i18n = {
       title: 'dashboard.profile.title',
       id: 'dashboard.profile.id',
       balance: 'dashboard.profile.balance',
+      name: 'dashboard.profile.name',
     },
     transfer: {
       title: 'dashboard.transfer.title',
@@ -35,6 +38,8 @@ export const i18n = {
     transactions: {
       title: 'dashboard.transactions.title',
       empty: 'dashboard.transactions.empty',
+      contacts: 'dashboard.transactions.contacts',
+      noContacts: 'dashboard.transactions.noContacts',
     },
     sections: {
       funds: 'dashboard.sections.funds',
