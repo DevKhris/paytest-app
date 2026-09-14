@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { CheckmarkCircle02Icon } from 'hugeicons-react';
 import { i18n } from '@/i18n/keys';
@@ -16,7 +15,6 @@ export default function AccessCodeForm() {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
-  const router = useRouter();
   const t = useTranslations();
   const { register, login, validateRoomCode, isLoading, error, clearError } = useAuthStore();
 
@@ -41,12 +39,12 @@ export default function AccessCodeForm() {
       try {
         await register(name.trim(), password, code.trim().toUpperCase());
         setIsSuccess(true);
-        setTimeout(() => router.push('/dashboard'), 300);
+        setTimeout(() => { window.location.href = '/dashboard'; }, 300);
       } catch {
         // error is set in store
       }
     },
-    [name, password, code, register, router, clearError]
+    [name, password, code, register, clearError]
   );
 
   const handleLoginSubmit = useCallback(
@@ -56,12 +54,12 @@ export default function AccessCodeForm() {
       try {
         await login(code.trim().toUpperCase(), password);
         setIsSuccess(true);
-        setTimeout(() => router.push('/dashboard'), 300);
+        setTimeout(() => { window.location.href = '/dashboard'; }, 300);
       } catch {
         // error is set in store
       }
     },
-    [code, password, login, router, clearError]
+    [code, password, login, clearError]
   );
 
   const handleBackToRoomCode = useCallback(() => {
