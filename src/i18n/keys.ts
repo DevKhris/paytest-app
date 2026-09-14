@@ -22,6 +22,7 @@ export const i18n = {
       passwordSoon: 'landing.form.passwordSoon',
       continueDashboard: 'landing.form.continueDashboard',
       login: 'landing.form.login',
+      register: 'landing.form.register',
     },
   },
   dashboard: {

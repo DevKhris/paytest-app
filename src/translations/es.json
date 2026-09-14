@@ -21,7 +21,8 @@
       "passwordPlaceholder": "Mínimo 8 caracteres",
       "passwordSoon": "Próximamente",
       "continueDashboard": "Ir al Dashboard",
-      "login": "Ya tengo cuenta"
+      "login": "Ya tengo cuenta",
+      "register": "Crear cuenta"
     }
   },
   "dashboard": {
