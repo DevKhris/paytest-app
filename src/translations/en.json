@@ -20,7 +20,8 @@
       "createPassword": "Create password",
       "passwordPlaceholder": "Minimum 8 characters",
       "passwordSoon": "Coming soon",
-      "continueDashboard": "Go to Dashboard"
+      "continueDashboard": "Go to Dashboard",
+      "login": "I already have an account"
     }
   },
   "dashboard": {

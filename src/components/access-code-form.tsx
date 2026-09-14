@@ -153,25 +153,10 @@ export default function AccessCodeForm() {
     );
   }
 
-  // ── Register step 2: credentials (name + password) ──
+  // ── Register step 2: name + password ──
   if (step === 'credentials') {
     return (
       <form onSubmit={handleRegisterSubmit} className="space-y-5">
-        <div className="text-center pb-4 border-b border-[var(--color-border)]">
-          <p className="text-sm text-[var(--color-text-secondary)] mb-1">
-            {t(i18n.landing.form.setupSubtitle)}
-          </p>
-          <p
-            className="text-xl font-bold uppercase tracking-wider bg-clip-text"
-            style={{
-              backgroundImage: 'linear-gradient(to right, var(--gradient-start), var(--gradient-end))',
-              color: 'transparent',
-            }}
-          >
-            {code}
-          </p>
-        </div>
-
         <div className="space-y-2">
           <label htmlFor="reg-name" className="block text-sm font-semibold text-[var(--color-text-primary)]">
             {t(i18n.landing.form.nameLabel)}
@@ -229,7 +214,7 @@ export default function AccessCodeForm() {
             ) : isLoading ? (
               t(i18n.landing.form.loading)
             ) : (
-              t(i18n.landing.form.continueDashboard)
+              t(i18n.landing.form.submit)
             )}
           </button>
         </div>
@@ -288,7 +273,7 @@ export default function AccessCodeForm() {
         onClick={handleBackToLogin}
         className="w-full text-sm text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors cursor-pointer"
       >
-        {t(i18n.landing.form.submit)}
+        {t(i18n.landing.form.login)}
       </button>
     </form>
   );
