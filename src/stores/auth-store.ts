@@ -9,6 +9,7 @@ interface AuthState {
   isLoading: boolean;
   error: string | null;
 
+  validateRoomCode: (roomCode: string) => Promise<boolean>;
   register: (name: string, password: string, roomCode: string) => Promise<void>;
   login: (userId: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -44,6 +45,19 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const stored = loadAuth();
     if (stored) {
       set({ token: stored.token, user: stored.user });
+    }
+  },
+
+  validateRoomCode: async (roomCode) => {
+    set({ isLoading: true, error: null });
+    try {
+      await api.validateRoomCode(roomCode);
+      set({ isLoading: false });
+      return true;
+    } catch (err) {
+      const apiErr = err as api.ApiError;
+      set({ isLoading: false, error: apiErr.message });
+      throw err;
     }
   },
 
