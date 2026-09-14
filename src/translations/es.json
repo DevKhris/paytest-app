@@ -1,0 +1,61 @@
+{
+  "landing": {
+    "title": "PayTest",
+    "subtitle": "Ingresa tu código de acceso para continuar",
+    "form": {
+      "title": "Acceso restringido",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "codeLabel": "Código de sala",
+      "codePlaceholder": "XXXXXXXX",
+      "submit": "Continuar",
+      "loading": "Verificando...",
+      "error": "Código de sala inválido. Por favor intenta de nuevo.",
+      "success": "Acceso concedido. Redirigiendo...",
+      "empty": "Por favor ingresa un código",
+      "setupTitle": "Creando tu cuenta",
+      "setupSubtitle": "Tu cuenta ha sido creada exitosamente",
+      "yourId": "Tu ID de usuario",
+      "idCopied": "Compártelo para recibir pagos",
+      "createPassword": "Crear contraseña",
+      "passwordPlaceholder": "Mínimo 8 caracteres",
+      "passwordSoon": "Próximamente",
+      "continueDashboard": "Ir al Dashboard"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Sección en construcción",
+    "close": "Cerrar sesión",
+    "profile": {
+      "title": "Tu cuenta",
+      "id": "ID",
+      "balance": "Saldo",
+      "welcomeBack": "Bienvenido de vuelta"
+    },
+    "transfer": {
+      "title": "Enviar / Recibir",
+      "send": "Enviar",
+      "receive": "Recibir",
+      "amount": "Monto",
+      "expectedAmount": "Monto esperado",
+      "recipientId": "ID del receptor",
+      "submit": "Enviar",
+      "cancel": "Cancelar",
+      "soon": "Próximamente"
+    },
+    "transactions": {
+      "title": "Transacciones",
+      "empty": "Sin transacciones aún",
+      "contacts": "Contactos",
+      "noContacts": "Sin contactos aún"
+    },
+    "sections": {
+      "funds": "Fondos",
+      "activity": "Actividad"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 PayTest. Todos los derechos reservados."
+  }
+}

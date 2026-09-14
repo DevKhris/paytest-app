@@ -1,0 +1,61 @@
+{
+  "landing": {
+    "title": "PayTest",
+    "subtitle": "Enter your access code to continue",
+    "form": {
+      "title": "Restricted access",
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "codeLabel": "Room code",
+      "codePlaceholder": "XXXXXXXX",
+      "submit": "Continue",
+      "loading": "Verifying...",
+      "error": "Invalid room code. Please try again.",
+      "success": "Access granted. Redirecting...",
+      "empty": "Please enter a code",
+      "setupTitle": "Creating your account",
+      "setupSubtitle": "Your account has been created successfully",
+      "yourId": "Your user ID",
+      "idCopied": "Share it to receive payments",
+      "createPassword": "Create password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "passwordSoon": "Coming soon",
+      "continueDashboard": "Go to Dashboard"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Section under construction",
+    "close": "Close session",
+    "profile": {
+      "title": "Your account",
+      "id": "ID",
+      "balance": "Balance",
+      "welcomeBack": "Welcome back"
+    },
+    "transfer": {
+      "title": "Send / Receive",
+      "send": "Send",
+      "receive": "Receive",
+      "amount": "Amount",
+      "expectedAmount": "Expected amount",
+      "recipientId": "Recipient ID",
+      "submit": "Send",
+      "cancel": "Cancel",
+      "soon": "Coming soon"
+    },
+    "transactions": {
+      "title": "Transactions",
+      "empty": "No transactions yet",
+      "contacts": "Contacts",
+      "noContacts": "No contacts yet"
+    },
+    "sections": {
+      "funds": "Funds",
+      "activity": "Activity"
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 PayTest. All rights reserved."
+  }
+}
