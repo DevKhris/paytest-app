@@ -29,6 +29,24 @@ export default async function middleware(request: NextRequest) {
     return response;
   }
 
+  if (pathname.startsWith('/dashboard')) {
+    const authCookie = request.cookies.get('paytest_auth')?.value;
+    if (!authCookie) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/';
+      return NextResponse.redirect(url);
+    }
+  }
+
+  if (pathname === '/') {
+    const authCookie = request.cookies.get('paytest_auth')?.value;
+    if (authCookie) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/dashboard';
+      return NextResponse.redirect(url);
+    }
+  }
+
   return NextResponse.next();
 }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import BalanceSection from '@/components/balance-section';
@@ -9,38 +9,45 @@ import SendModal from '@/components/send-modal';
 import ReceiveModal from '@/components/receive-modal';
 import Header from '@/components/header';
 import SessionMonitor from '@/components/session-monitor';
-import { getOrCreateUser, clearUser } from '@/lib/storage';
-import type { User } from '@/types/user';
-import type { Transaction } from '@/types/transaction';
+import { useAuthStore } from '@/stores/auth-store';
+import { useAccountStore } from '@/stores/account-store';
 import { i18n } from '@/i18n/keys';
 
 type ModalType = 'send' | 'receive' | null;
 
 export default function DashboardContent() {
-  const [user, setUser] = useState<User | null>(null);
-  const [mounted, setMounted] = useState(false);
-  const [transactions] = useState<Transaction[]>([]);
-  const [activeModal, setActiveModal] = useState<ModalType>(null);
+  const { token, user, loadFromStorage } = useAuthStore();
+  const {
+    balance,
+    transactions,
+    fetchBalance,
+    fetchTransactions,
+    reset,
+  } = useAccountStore();
+  const [activeModal, setActiveModal] = React.useState<ModalType>(null);
   const t = useTranslations();
   const router = useRouter();
 
   useEffect(() => {
-    const loadedUser = getOrCreateUser();
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- Client-only initialization to avoid hydration mismatch with localStorage
-    setUser(loadedUser);
-    setMounted(true);
-  }, []);
+    loadFromStorage();
+  }, [loadFromStorage]);
+
+  useEffect(() => {
+    if (!token) return;
+    fetchBalance(token);
+    fetchTransactions(token);
+  }, [token, fetchBalance, fetchTransactions]);
 
   const handleOpenSend = useCallback(() => setActiveModal('send'), []);
   const handleOpenReceive = useCallback(() => setActiveModal('receive'), []);
   const handleCloseModal = useCallback(() => setActiveModal(null), []);
 
   const handleCloseSession = useCallback(() => {
-    clearUser();
+    reset();
     router.push('/');
-  }, [router]);
+  }, [router, reset]);
 
-  if (!mounted || !user) {
+  if (!user || !token) {
     return (
       <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
         <Header />
@@ -52,6 +59,8 @@ export default function DashboardContent() {
       </div>
     );
   }
+
+  const displayBalance = balance ?? 0;
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--color-bg)]">
@@ -70,7 +79,9 @@ export default function DashboardContent() {
                 {t(i18n.dashboard.sections.funds)}
               </h2>
               <BalanceSection
-                user={user}
+                userName={user.name}
+                userId={user.userId}
+                balance={displayBalance}
                 onSendClick={handleOpenSend}
                 onReceiveClick={handleOpenReceive}
               />
@@ -88,9 +99,9 @@ export default function DashboardContent() {
 
       <footer className="py-6 px-6 border-t bg-[var(--color-bg-card)] border-[var(--color-border)]">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <a 
-            href="https://github.com/DevKhris" 
-            target="_blank" 
+          <a
+            href="https://github.com/DevKhris"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-sm cursor-pointer hover:opacity-80 transition-opacity duration-150"
           >
@@ -107,7 +118,7 @@ export default function DashboardContent() {
       <SendModal
         isOpen={activeModal === 'send'}
         onClose={handleCloseModal}
-        maxAmount={user.balance}
+        maxAmount={displayBalance}
       />
       <ReceiveModal
         isOpen={activeModal === 'receive'}

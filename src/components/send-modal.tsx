@@ -1,9 +1,11 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Cancel02Icon } from 'hugeicons-react';
 import { i18n } from '@/i18n/keys';
+import { useAuthStore } from '@/stores/auth-store';
+import { useAccountStore } from '@/stores/account-store';
 
 interface SendModalProps {
   isOpen: boolean;
@@ -14,27 +16,51 @@ interface SendModalProps {
 export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps) {
   const [amount, setAmount] = useState('');
   const [recipientId, setRecipientId] = useState('');
+  const [error, setError] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
   const t = useTranslations();
+  const { token } = useAuthStore();
+  const { sendTransfer, isSending } = useAccountStore();
 
   const handleClose = useCallback(() => {
     setAmount('');
     setRecipientId('');
+    setError('');
+    setIsSuccess(false);
     onClose();
   }, [onClose]);
 
-  const isFormValid = useMemo(() => 
-    amount.length > 0 && recipientId.length > 0,
+  const isFormValid = useMemo(
+    () => amount.length > 0 && recipientId.length > 0 && Number(amount) > 0,
     [amount, recipientId]
   );
+
+  const handleSubmit = useCallback(async () => {
+    if (!token || !isFormValid) return;
+    setError('');
+
+    try {
+      const idempotencyKey = `tx_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+      await sendTransfer(token, {
+        toUserId: recipientId.trim().toUpperCase(),
+        amount: Number(amount),
+        idempotency_key: idempotencyKey,
+      });
+      setIsSuccess(true);
+      setTimeout(handleClose, 1500);
+    } catch {
+      setError('Transfer failed. Check the recipient ID and balance.');
+    }
+  }, [token, isFormValid, sendTransfer, recipientId, amount, handleClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 flex items-center justify-center p-4 z-50 animate-fadeIn bg-black/60 backdrop-blur-sm"
       onClick={handleClose}
     >
-      <div 
+      <div
         className="relative w-full max-w-md rounded-xl animate-slideUp bg-[var(--color-bg-card)] shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
@@ -42,19 +68,31 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
           <h2 className="text-lg font-semibold transition-colors duration-200 text-[var(--color-text-primary)]">
             {t(i18n.dashboard.transfer.send)}
           </h2>
-          <button 
-            type="button" 
+          <button
+            type="button"
             onClick={handleClose}
             className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-150 cursor-pointer hover:bg-[var(--color-bg-subtle)] text-[var(--color-text-secondary)]"
           >
             <Cancel02Icon size={20} strokeWidth={1.5} />
           </button>
         </div>
-        
+
         <div className="p-5 space-y-4">
+          {error && (
+            <div className="p-3 rounded-lg text-sm border border-[var(--color-error)] bg-[var(--color-error-bg)] text-[var(--color-error)]">
+              {error}
+            </div>
+          )}
+
+          {isSuccess && (
+            <div className="p-3 rounded-lg text-sm border border-[var(--color-success)] bg-[var(--color-success-bg)] text-[var(--color-success)]">
+              Transfer completed successfully
+            </div>
+          )}
+
           <div className="space-y-2">
-            <label 
-              htmlFor="send-amount" 
+            <label
+              htmlFor="send-amount"
               className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
             >
               {t(i18n.dashboard.transfer.amount)}
@@ -64,15 +102,18 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
               type="number"
               placeholder="0.00"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => {
+                setAmount(e.target.value);
+                setError('');
+              }}
               max={maxAmount}
               className="w-full px-4 py-3 text-base font-mono bg-transparent border-2 rounded-lg outline-none transition-all duration-150 input-gradient-focus text-[var(--color-text-primary)] bg-[var(--color-bg)]"
             />
           </div>
 
           <div className="space-y-2">
-            <label 
-              htmlFor="recipient-id" 
+            <label
+              htmlFor="recipient-id"
               className="block text-sm font-semibold transition-colors duration-200 text-[var(--color-text-primary)]"
             >
               {t(i18n.dashboard.transfer.recipientId)}
@@ -82,7 +123,10 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
               type="text"
               placeholder="XXXXXXXXXXXX"
               value={recipientId}
-              onChange={(e) => setRecipientId(e.target.value.toUpperCase())}
+              onChange={(e) => {
+                setRecipientId(e.target.value.toUpperCase());
+                setError('');
+              }}
               maxLength={12}
               className="w-full px-4 py-3 text-base font-mono tracking-wider bg-transparent border-2 rounded-lg outline-none transition-all duration-150 uppercase input-gradient-focus text-[var(--color-text-primary)] bg-[var(--color-bg)]"
             />
@@ -99,10 +143,11 @@ export default function SendModal({ isOpen, onClose, maxAmount }: SendModalProps
           </button>
           <button
             type="button"
-            disabled={!isFormValid}
+            onClick={handleSubmit}
+            disabled={!isFormValid || isSending || isSuccess}
             className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 transition-all duration-150 cursor-pointer hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white"
           >
-            {t(i18n.dashboard.transfer.submit)}
+            {isSending ? '...' : t(i18n.dashboard.transfer.submit)}
           </button>
         </div>
       </div>
