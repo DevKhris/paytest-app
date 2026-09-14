@@ -19,7 +19,7 @@ export default function AccessCodeForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const t = useTranslations();
-  const { register, login, isLoading, error, clearError } = useAuthStore();
+  const { register, login, validateRoomCode, isLoading, error, clearError } = useAuthStore();
 
   const handleRegisterSubmit = useCallback(
     async (e: React.FormEvent) => {
@@ -27,7 +27,12 @@ export default function AccessCodeForm() {
       clearError();
 
       if (step === 'credentials') {
-        setStep('confirm');
+        try {
+          await validateRoomCode(code.trim().toUpperCase());
+          setStep('confirm');
+        } catch {
+          // error is set in store
+        }
         return;
       }
 
@@ -39,7 +44,7 @@ export default function AccessCodeForm() {
         // error is set in store
       }
     },
-    [step, name, password, code, register, router, clearError]
+    [step, name, password, code, register, validateRoomCode, router, clearError]
   );
 
   const handleLoginSubmit = useCallback(
