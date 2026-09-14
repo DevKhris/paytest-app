@@ -19,10 +19,12 @@ interface AuthState {
 
 function saveAuth(token: string, user: api.AuthUser) {
   localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify({ token, user }));
+  document.cookie = `paytest_auth=${token}; path=/; max-age=86400; SameSite=Lax`;
 }
 
 function clearAuthStorage() {
   localStorage.removeItem(AUTH_STORAGE_KEY);
+  document.cookie = 'paytest_auth=; path=/; max-age=0';
 }
 
 function loadAuth(): { token: string; user: api.AuthUser } | null {
