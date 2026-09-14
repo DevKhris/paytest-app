@@ -8,11 +8,11 @@ import { i18n } from '@/i18n/keys';
 import { useAuthStore } from '@/stores/auth-store';
 
 type FormMode = 'register' | 'login';
-type RegistrationStep = 'credentials' | 'confirm';
+type RegistrationStep = 'roomcode' | 'credentials';
 
 export default function AccessCodeForm() {
   const [mode, setMode] = useState<FormMode>('register');
-  const [step, setStep] = useState<RegistrationStep>('credentials');
+  const [step, setStep] = useState<RegistrationStep>('roomcode');
   const [name, setName] = useState('');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
@@ -26,10 +26,10 @@ export default function AccessCodeForm() {
       e.preventDefault();
       clearError();
 
-      if (step === 'credentials') {
+      if (step === 'roomcode') {
         try {
           await validateRoomCode(code.trim().toUpperCase());
-          setStep('confirm');
+          setStep('credentials');
         } catch {
           // error is set in store
         }
@@ -65,8 +65,9 @@ export default function AccessCodeForm() {
 
   const handleBackToRegister = useCallback(() => {
     setMode('register');
-    setStep('credentials');
+    setStep('roomcode');
     setPassword('');
+    setName('');
     clearError();
   }, [clearError]);
 
@@ -79,6 +80,7 @@ export default function AccessCodeForm() {
   const inputBaseClass =
     'w-full px-4 py-3 text-base font-medium bg-transparent border-2 rounded-lg outline-none transition-all duration-150 placeholder:font-mono placeholder:tracking-widest input-gradient-focus text-[var(--color-text-primary)] bg-[var(--color-bg)]';
 
+  // ── Login mode ──
   if (mode === 'login') {
     return (
       <form onSubmit={handleLoginSubmit} className="space-y-5">
@@ -151,7 +153,8 @@ export default function AccessCodeForm() {
     );
   }
 
-  if (step === 'confirm') {
+  // ── Register step 2: credentials (name + password) ──
+  if (step === 'credentials') {
     return (
       <form onSubmit={handleRegisterSubmit} className="space-y-5">
         <div className="text-center pb-4 border-b border-[var(--color-border)]">
@@ -165,27 +168,31 @@ export default function AccessCodeForm() {
               color: 'transparent',
             }}
           >
-            {name}
+            {code}
           </p>
         </div>
 
         <div className="space-y-2">
-          <label className="block text-sm font-semibold text-[var(--color-text-primary)]">
-            {t(i18n.landing.form.codeLabel)}
+          <label htmlFor="reg-name" className="block text-sm font-semibold text-[var(--color-text-primary)]">
+            {t(i18n.landing.form.nameLabel)}
           </label>
-          <div className="flex items-center gap-2 px-4 py-3 rounded-lg border-2 border-dashed border-[var(--color-border)] bg-[var(--color-bg-subtle)]">
-            <span className="font-mono text-base font-semibold uppercase tracking-wider text-[var(--color-text-primary)]">
-              {code}
-            </span>
-          </div>
+          <input
+            id="reg-name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t(i18n.landing.form.namePlaceholder)}
+            className={`${inputBaseClass} cursor-text`}
+            required
+          />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="confirm-password" className="block text-sm font-semibold text-[var(--color-text-primary)]">
+          <label htmlFor="reg-password" className="block text-sm font-semibold text-[var(--color-text-primary)]">
             {t(i18n.landing.form.createPassword)}
           </label>
           <input
-            id="confirm-password"
+            id="reg-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -204,7 +211,7 @@ export default function AccessCodeForm() {
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={() => setStep('credentials')}
+            onClick={() => setStep('roomcode')}
             className="flex-1 px-4 py-3 text-sm font-semibold rounded-lg border-2 border-dashed transition-all duration-150 cursor-pointer hover:brightness-110 border-[var(--color-border)] text-[var(--color-text-primary)] bg-transparent"
           >
             ←
@@ -230,22 +237,14 @@ export default function AccessCodeForm() {
     );
   }
 
+  // ── Register step 1: roomcode only ──
   return (
     <form onSubmit={handleRegisterSubmit} className="space-y-5">
-      <div className="space-y-2">
-        <label htmlFor="name" className="block text-sm font-semibold text-[var(--color-text-primary)]">
-          {t(i18n.landing.form.nameLabel)}
-        </label>
-        <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder={t(i18n.landing.form.namePlaceholder)}
-          className={`${inputBaseClass} cursor-text`}
-          required
-        />
-      </div>
+      {error && (
+        <div className="p-3 rounded-lg text-sm border border-[var(--color-error)] bg-[var(--color-error-bg)] text-[var(--color-error)]">
+          {error}
+        </div>
+      )}
 
       <div className="space-y-2">
         <label htmlFor="code" className="block text-sm font-semibold text-[var(--color-text-primary)]">
@@ -269,9 +268,19 @@ export default function AccessCodeForm() {
 
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white"
+        disabled={isLoading || isSuccess}
+        className="w-full flex items-center justify-center gap-2 px-6 py-3.5 text-base font-bold rounded-lg border-2 transition-all duration-150 hover:brightness-110 cursor-pointer bg-[var(--gradient-start)] border-[var(--gradient-start)] text-white disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {t(i18n.landing.form.submit)}
+        {isSuccess ? (
+          <>
+            <CheckmarkCircle02Icon size={20} strokeWidth={2} />
+            <span>✓</span>
+          </>
+        ) : isLoading ? (
+          t(i18n.landing.form.loading)
+        ) : (
+          t(i18n.landing.form.submit)
+        )}
       </button>
 
       <button
